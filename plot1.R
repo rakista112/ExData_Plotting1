@@ -1,15 +1,17 @@
 electric <- read.delim('household_power_consumption.txt', sep=";", colClasses=c('character', 'character', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'), na.strings='?')
 
+startDate <- as.POSIXct('2007-02-01')
+endDate <- as.POSIXct('2007-02-03')
+
 # convert dates and time
-electric$Date <- as.Date(electric$Date, '%d/%m/%Y')
-electric$Time <- strptime(electric$Time, '%H:%M:%S')
-electric <- electric[electric$Date >= as.Date('2007-02-01') & electric$Date <= as.Date('2007-02-02'), ]
+electric$DateTime <- strptime(paste(electric$Date, electric$Time), format='%d/%m/%Y %H:%M:%S')
+electric <- electric[electric$DateTime >= startDate & electric$DateTime <= endDate , ]
 
 png('plot1.png', width = 480, height = 480)
 
 hist(electric$Global_active_power, 
-     col='orangered2', 
+     col='red', 
      xlab="Global Active Power (kilowatts)",  
      main='Global Active Power')
-
+  
 dev.off()
