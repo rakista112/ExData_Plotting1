@@ -1,11 +1,11 @@
 startDate <- as.POSIXct('2007-02-01')
 endDate <- as.POSIXct('2007-02-03')
 
-#electric <- read.delim('household_power_consumption.txt', sep=";", colClasses=c('character', 'character', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'), na.strings='?')
+electric <- read.delim('household_power_consumption.txt', sep=";", colClasses=c('character', 'character', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'), na.strings='?')
 
 # subset data by date
-#electric$DateTime <- strptime(paste(electric$Date, electric$Time), format='%d/%m/%Y %H:%M:%S')
-#electric <- electric[electric$DateTime >= startDate & electric$DateTime <= endDate , ]
+electric$DateTime <- strptime(paste(electric$Date, electric$Time), format='%d/%m/%Y %H:%M:%S')
+electric <- electric[electric$DateTime >= startDate & electric$DateTime <= endDate , ]
 
 png('plot4.png', width = 480, height = 480)
 
@@ -26,3 +26,5 @@ plot(electric$DateTime, electric$Voltage, type='l', xlab='datetime', ylab='Volta
 
 # 4th plot
 plot(electric$DateTime, electric$Global_reactive_power, type='l', xlab='datetime', ylab='Global_reactive_power')
+
+dev.off()
